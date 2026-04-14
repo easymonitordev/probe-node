@@ -57,13 +57,17 @@ ping -c 2 <server-tailscale-ip>
 docker run -d \
   --name easymonitor-probe \
   --restart unless-stopped \
+  --network host \
   -e NODE_ID="us-east-1" \
   -e REDIS_URL="redis://<server-tailscale-ip>:6379/0" \
   -e REDIS_PASSWORD="<redis password from server .env>" \
   -e JWT_TOKEN="<probe token from step above>" \
-  -p 8080:8080 \
   easymonitor/probe-node:latest
 ```
+
+`--network host` is required so the container shares the host's `tailscale0`
+interface — without it, the container's own network namespace can't reach
+the tailnet. Port 8080 is automatically exposed on the host, no `-p` needed.
 
 ### 3. Verify
 
