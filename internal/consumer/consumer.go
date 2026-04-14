@@ -30,7 +30,8 @@ func NewConsumer(client *redis.Client, cfg *config.Config) *Consumer {
 	}
 }
 
-// EnsureConsumerGroup creates the consumer group if it doesn't exist
+// EnsureConsumerGroup creates the consumer group at "$" and forces its read
+// position to "$" on every startup so stale backlog is never replayed.
 func (c *Consumer) EnsureConsumerGroup(ctx context.Context) error {
 	err := c.client.XGroupCreateMkStream(
 		ctx,
@@ -41,6 +42,10 @@ func (c *Consumer) EnsureConsumerGroup(ctx context.Context) error {
 
 	if err != nil && err.Error() != "BUSYGROUP Consumer Group name already exists" {
 		return fmt.Errorf("failed to create consumer group: %w", err)
+	}
+
+	if err := c.client.XGroupSetID(ctx, c.cfg.CheckStream, c.cfg.ConsumerGroup, "$").Err(); err != nil {
+		return fmt.Errorf("failed to set consumer group position: %w", err)
 	}
 
 	return nil
