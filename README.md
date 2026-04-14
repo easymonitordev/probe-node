@@ -5,6 +5,14 @@ A lightweight Go binary that executes monitoring checks on behalf of an [EasyMon
 Deploy one or more probes across different regions/networks. The server applies cross-probe quorum so alerts only fire when a majority of probes agree.
 
 ![License](https://img.shields.io/github/license/easymonitordev/probe-node)
+![Docker pulls](https://img.shields.io/docker/pulls/easymonitor/probe-node)
+
+Pre-built images are published for every release:
+
+- **Docker Hub:** `easymonitor/probe-node:latest`
+- **GitHub Container Registry:** `ghcr.io/easymonitordev/probe-node:latest`
+
+Both are multi-arch (linux/amd64, linux/arm64) and built from the same source.
 
 ---
 
@@ -54,7 +62,7 @@ docker run -d \
   -e REDIS_PASSWORD="<redis password from server .env>" \
   -e JWT_TOKEN="<probe token from step above>" \
   -p 8080:8080 \
-  ghcr.io/easymonitordev/probe-node:latest
+  easymonitor/probe-node:latest
 ```
 
 ### 3. Verify
@@ -100,7 +108,7 @@ docker run -d \
   -e REDIS_URL="redis://127.0.0.1:6379/0" \
   -e REDIS_PASSWORD="..." \
   -e JWT_TOKEN="..." \
-  ghcr.io/easymonitordev/probe-node:latest
+  easymonitor/probe-node:latest
 ```
 
 ---
@@ -241,7 +249,7 @@ spec:
     spec:
       containers:
         - name: probe
-          image: ghcr.io/easymonitordev/probe-node:latest
+          image: easymonitor/probe-node:latest
           env:
             - name: NODE_ID
               valueFrom:
