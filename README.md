@@ -2,7 +2,7 @@
 
 A lightweight Go binary that executes monitoring checks on behalf of an [EasyMonitor](https://github.com/easymonitordev/easymonitor) server. Probes pull work from the server's Redis Streams, run HTTP/ICMP/TCP checks, and publish results back.
 
-Requires an EasyMonitor server v0.2.0 or newer for TCP checks. Probes skip check types they do not recognize, so running an older probe against a newer server degrades gracefully (those monitors are simply not checked by that probe). Keyword assertions on HTTP checks are evaluated by probes from v0.2.1 on; older probes ignore the assertion and evaluate only the status code.
+Requires an EasyMonitor server v0.2.0 or newer for TCP checks. Probes skip check types they do not recognize, so running an older probe against a newer server degrades gracefully (those monitors are simply not checked by that probe). Keyword assertions on HTTP checks are evaluated by probes from v0.3.0 on; older probes ignore the assertion and evaluate only the status code.
 
 Deploy one or more probes across different regions/networks. The server applies cross-probe quorum so alerts only fire when a majority of probes agree.
 
