@@ -130,7 +130,7 @@ docker run -d \
 | `PROBE_TAGS` | no | — | Comma-separated tags for this probe (e.g. `us-east-1,production`) |
 | `DEFAULT_TIMEOUT` | no | `30s` | Default per-check timeout |
 | `BATCH_SIZE` | no | `10` | Max checks pulled per `XREADGROUP` |
-| `MAX_CHECK_AGE` | No | `2m` | Checks older than this are skipped, so a probe that falls behind catches up instead of reporting stale results |
+| `MAX_CHECK_AGE` | no | `2m` | Skip checks older than this instead of replaying a backlog |
 | `MAX_CONCURRENCY` | no | `10` | Concurrent in-flight checks |
 | `HEALTH_CHECK_PORT` | no | `8080` | HTTP port for `/health`, `/ready`, `/version` |
 | `REDIS_DB` | no | `0` | Redis database number |
